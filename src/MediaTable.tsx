@@ -1,9 +1,26 @@
 import React, { useState } from 'react';
 import TableRow from "./TableRow"
+import { applyUserInput } from "./helpers/applyUserInput";
 
 function MediaTable({ appState }) {
 
   const [loadedData, setLoadedData, userInputs] = appState
+
+  function toDisplay() {
+
+    let result = [...loadedData]
+
+    // for (let i = 0; i < userInputs.length; i++) {
+    //   result = applyUserInput(userInputs[i], result)
+    // }
+
+    result.sort( function (a, b) {
+      return b.interest - a.interest
+    })
+
+    return result
+
+  }
 
   function addNewItem() {
     setLoadedData([
@@ -31,7 +48,7 @@ function MediaTable({ appState }) {
         </tr>
       </thead>
       <tbody>
-        {loadedData.map( (x, index) =>
+        {toDisplay().map( (x, index) =>
           <TableRow
             appState={appState}
             rowData={x}

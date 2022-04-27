@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 
-function Controls({ appState }) {
+function Controls({ userInputs, setUserInputs }) {
 
-  const [loadedData, setLoadedData, userInputs, setUserInputs] = [...appState]
+  const [userInput, setUserInput] = useState("")
+
+  function handleSubmitButtonClick () {
+    setUserInputs([...userInputs, ...userInput.split(", ")])
+    setUserInput("")
+  }
 
   return (
-    <textarea />
+    <>
+      <ul>{userInputs.map( (x, index) => <li key={x + index} >{x}</li> )}</ul>
+      <textarea value={userInput} onChange={(e) => setUserInput(e.target.value)} />
+      <button onClick={() => handleSubmitButtonClick()}>submit</button>
+    </>
   );
 }
 

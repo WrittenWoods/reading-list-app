@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import MediaTable from "./MediaTable"
-import SaveMenu from "./SaveMenu"
+import MediaTable from "./MediaTable";
+import SaveMenu from "./SaveMenu";
+import Controls from "./Controls";
 import { starterData } from "./starterData";
 
 function App() {
 
   const [loadedData, setLoadedData] = useState(starterData)
-  const [userInputs, setUserInputs] = useState()
+  const [userInputs, setUserInputs] = useState([])
+
+  console.log("buh")
 
   return (
     <div className="App">
       <header className="App-header">
         <SaveMenu loadedData={loadedData} />
-        <textarea value={userInputs} onChange={(e) => setUserInputs(e.target.value)} />
+        <Controls userInputs={userInputs} setUserInputs={setUserInputs} />
         <MediaTable
           appState={[loadedData, setLoadedData, userInputs]}
         />
