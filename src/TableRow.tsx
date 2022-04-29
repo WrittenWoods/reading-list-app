@@ -32,7 +32,7 @@ function TableRow({ appState, rowData, rowIndex }) {
           <td><button onClick={() => handleDeleteButtonClick()}>delete</button></td>
           <td><button onClick={() => handleEditButtonClick()}>save</button></td>
           <td><textarea value={title} onChange={(e) => setTitle(e.target.value)} /></td>
-          <td><textarea value={tags.join(", ")} onChange={(e) => setTags(e.target.value.split(", "))}/></td>
+          <td><textarea value={tags.join(", ")} onChange={(e) => setTags(e.target.value.split(",").map(x => x.trim()))}/></td>
           <td><textarea value={runtime} onChange={(e) => setRuntime(Number(e.target.value))} /></td>
           <td><textarea value={interest} onChange={(e) => setInterest(Number(e.target.value))} /></td>
         </tr>

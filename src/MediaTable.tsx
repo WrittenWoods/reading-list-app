@@ -1,26 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TableRow from "./TableRow"
-import { applyUserInput } from "./helpers/applyUserInput";
+import { applyUserInputs } from "./helpers/applyUserInputs";
 
 function MediaTable({ appState }) {
 
   const [loadedData, setLoadedData, userInputs] = appState
 
-  function toDisplay() {
+  // Represents the portion and order of loadedData that's displayed to user
 
-    let result = [...loadedData]
+  const [displayedData, setDisplayedData] = useState(applyUserInputs(loadedData, userInputs))
 
-    // for (let i = 0; i < userInputs.length; i++) {
-    //   result = applyUserInput(userInputs[i], result)
-    // }
+  // Updates displayed data whenever user makes a change to sort/filter parameters or to loaded table data
 
-    result.sort( function (a, b) {
-      return b.interest - a.interest
-    })
+  useEffect(() => {
+    setDisplayedData(applyUserInputs(loadedData, userInputs))
+  }, [loadedData, userInputs])
 
-    return result
-
-  }
+  // Adds a new item to the loadedData state on App.tsx
 
   function addNewItem() {
     setLoadedData([
@@ -33,6 +29,8 @@ function MediaTable({ appState }) {
       }
     ])
   }
+
+  // TSX return
 
   return (
     <>
@@ -48,12 +46,12 @@ function MediaTable({ appState }) {
         </tr>
       </thead>
       <tbody>
-        {toDisplay().map( (x, index) =>
+        {displayedData.map( x =>
           <TableRow
             appState={appState}
-            rowData={x}
-            rowIndex={index}
-            key={x.title + index}
+            rowData={x.rowData}
+            rowIndex={x.rowIndex}
+            key={x.rowData.title + x.rowIndex}
           /> )}
       </tbody>
     </table>

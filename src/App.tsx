@@ -8,9 +8,7 @@ import { starterData } from "./starterData";
 function App() {
 
   const [loadedData, setLoadedData] = useState(starterData)
-  const [userInputs, setUserInputs] = useState([])
-
-  console.log("buh")
+  const [userInputs, setUserInputs] = useState({ exclude: [], include: ["all tags"], modifiers: [] })
 
   return (
     <div className="App">
